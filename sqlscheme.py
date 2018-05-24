@@ -72,25 +72,31 @@ class Master(orm_declarative_base):
     _bbrefID = sqlalchemy.Column('bbrefID', sqlalchemy.VARCHAR(length=9))
 
 
-class Fielding(orm_declarative_base):
+class Appearances(orm_declarative_base):
 
-    __tablename__ = 'fielding'
+    __tablename__ = 'appearances'
     __table_args__ = (
-        sqlalchemy.PrimaryKeyConstraint('playerID', 'yearID', 'stint', 'POS'),
+        sqlalchemy.PrimaryKeyConstraint('yearID', 'teamID', 'playerID'),
         {},
     )
     _playerID = sqlalchemy.Column('playerID', sqlalchemy.VARCHAR(length=9), primary_key=True, nullable=False)
     _yearID = sqlalchemy.Column('yearID', sqlalchemy.Integer, primary_key=True, nullable=False)
-    _stint = sqlalchemy.Column('stint', sqlalchemy.Integer, primary_key=True, nullable=False)
-    _POS = sqlalchemy.Column('POS', sqlalchemy.VARCHAR(length=2), primary_key=True, nullable=False)
     _lgID = sqlalchemy.Column('lgID', sqlalchemy.VARCHAR(length=2))
-    _teamID = sqlalchemy.Column('teamID', sqlalchemy.VARCHAR(length=3))
-    _G = sqlalchemy.Column('G', sqlalchemy.Integer)
-    _InnOuts = sqlalchemy.Column('InnOuts', sqlalchemy.Integer)
-    _PO = sqlalchemy.Column('PO', sqlalchemy.Integer)
-    _A = sqlalchemy.Column('A', sqlalchemy.Integer)
-    _E = sqlalchemy.Column('E', sqlalchemy.Integer)
-    _DP = sqlalchemy.Column('DP', sqlalchemy.Integer)
+    _teamID = sqlalchemy.Column('teamID', sqlalchemy.VARCHAR(length=3), primary_key=True, nullable=False)
+    _G_all = sqlalchemy.Column('G_all', sqlalchemy.Integer)
+    _GS = sqlalchemy.Column('GS', sqlalchemy.Integer)
+    _G_batting = sqlalchemy.Column('G_batting', sqlalchemy.Integer)
+    _G_defense = sqlalchemy.Column('G_defense', sqlalchemy.Integer)
+    _G_p = sqlalchemy.Column('G_p', sqlalchemy.Integer)
+    _G_c = sqlalchemy.Column('G_c', sqlalchemy.Integer)
+    _G_1b = sqlalchemy.Column('G_1b', sqlalchemy.Integer)
+    _G_2b = sqlalchemy.Column('G_2b', sqlalchemy.Integer)
+    _G_3b = sqlalchemy.Column('G_3b', sqlalchemy.Integer)
+    _G_ss = sqlalchemy.Column('G_ss', sqlalchemy.Integer)
+    _G_lf = sqlalchemy.Column('G_lf', sqlalchemy.Integer)
+    _G_cf = sqlalchemy.Column('G_cf', sqlalchemy.Integer)
+    _G_rf = sqlalchemy.Column('G_rf', sqlalchemy.Integer)
+    _G_of = sqlalchemy.Column('G_of', sqlalchemy.Integer)
 
 
 class Salaries(orm_declarative_base):

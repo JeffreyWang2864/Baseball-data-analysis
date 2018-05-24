@@ -1,5 +1,7 @@
 from matplotlib import pyplot as plt
+import pydotplus
 import numpy as np
+import collections
 
 class DataVisualizer:
     def __init__(self):
@@ -32,3 +34,15 @@ class DataVisualizer:
 
     def show(self):
         plt.show()
+
+    def drawTreeFromDot(self, fileloc):
+        graph = pydotplus.graph_from_dot_file(fileloc)
+        edges = collections.defaultdict(list)
+        for edge in graph.get_edge_list():
+            edges[edge.get_source()].append(int(edge.get_destination()))
+        for edge in edges:
+            edges[edge].sort()
+            for i in range(2):
+                dest = graph.get_node(str(edges[edge][i]))[0]
+                dest.set_fillcolor('white')
+        graph.write_png('tree.png')

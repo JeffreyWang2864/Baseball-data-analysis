@@ -2,10 +2,13 @@ from util import getDbInfo
 from sqlscheme import Session
 from sqlscheme import Batting
 from sqlscheme import Master
-from sqlscheme import Fielding
+from sqlscheme import Appearances
 from sqlscheme import Salaries
 from baseballdata import DataManager
 from datavisualizer import DataVisualizer
+from sklearn import tree
+from sklearn import linear_model
+from sklearn import metrics
 
 import numpy as np
 
@@ -21,22 +24,69 @@ if __name__ == '__main__':
 
     salariesSql = bs.session.query(Salaries._playerID, Salaries._yearID,
                                    Salaries._lgID, Salaries._teamID, Salaries._salary).all()
-    fieldingSql = bs.session.query(Fielding._playerID, Fielding._yearID, Fielding._lgID, Fielding._teamID,
-                                   Fielding._stint, Fielding._POS, Fielding._G, Fielding._InnOuts,
-                                   Fielding._PO, Fielding._A, Fielding._E, Fielding._DP).all()
+    appearancesSql = bs.session.query(Appearances._playerID, Appearances._yearID, Appearances._lgID, Appearances._teamID,
+                                      Appearances._G_all, Appearances._GS, Appearances._G_batting,
+                                      Appearances._G_defense, Appearances._G_p, Appearances._G_c,
+                                      Appearances._G_1b, Appearances._G_2b, Appearances._G_3b,
+                                      Appearances._G_ss, Appearances._G_lf, Appearances._G_cf,
+                                      Appearances._G_rf, Appearances._G_of).all()
     masterSql = bs.session.query(Master._playerID, Master._weight, Master._height, Master._bats,
                                  Master._throws, Master._nameFirst, Master._nameLast).all()
     salariesDM = DataManager(salariesSql, ['playerID', 'yearID', 'lgID', 'teamID', 'salary'])
-    fieldingDM = DataManager(fieldingSql, ['playerID', 'yearID', 'lgID', 'teamID', 'stint', 'POS', 'G', 'InnOuts', 'PO', 'A', 'E', 'DP'])
+    appearancesDM = DataManager(appearancesSql, ['playerID', 'yearID', 'lgID', 'teamID', 'G_all', 'G_GS', 'G_batting',
+                                                 'G_defense', 'G_p', 'G_c', 'G_1b', 'G_2b', 'G_3b', 'G_ss', 'G_lf',
+                                                 'G_cf', 'G_rf', 'G_of'])
+    maxYear = appearancesDM.d['yearID'].max()
+    deletingIndexes = list()
+    for index, row in appearancesDM.d.iterrows():
+        if index == maxYear:
+            deletingIndexes.append(index)
+            continue
+        appearancesDM.d.at[index, 'yearID'] = appearancesDM.d.at[index, 'yearID'] + 1
+    appearancesDM.d.drop(deletingIndexes)
     masterDM = DataManager(masterSql, ['playerID', 'weight', 'height', 'bats', 'throws', 'nameFirst', 'nameLast'])
-    salariesDM.merge(fieldingDM.d, ['playerID', 'yearID', 'lgID', 'teamID'], ['playerID', 'yearID', 'lgID', 'teamID'], 'inner')
+    salariesDM.merge(appearancesDM.d, ['playerID', 'yearID', 'lgID', 'teamID'], ['playerID', 'yearID', 'lgID', 'teamID'], 'inner')
     salariesDM.merge(masterDM.d, ['playerID'], ['playerID'], 'inner')
+    #salariesDM.d = salariesDM.d.loc[:, salariesDM.d.columns != 'playerID']
+    salariesDM.d = salariesDM.d[['yearID', 'lgID', 'teamID', 'salary', 'bats', 'throws', 'G_all', 'G_GS', 'G_batting',
+                                                 'G_defense']]
     salariesDM.d['bats'] = salariesDM.d['bats'].map({'R': True, 'L': False})
     salariesDM.d['throws'] = salariesDM.d['throws'].map({'R': True, 'L': False})
+    salariesDM.dropna()
+    salariesDM.convertString(['lgID', 'teamID'])
+    res = 0
+    while abs(res) < 0.6:
+        test, train = salariesDM.split(0.1)
+        trainY = train['salary']
+        trainX = train.drop('salary', axis=1)
+        testY = test['salary']
+        testX = test.drop('salary', axis=1)
+        clf = tree.DecisionTreeRegressor()
+        clf.fit(trainX, trainY)
+        #   [ 131731.88188759  542168.95388081   -5251.10564173  136570.37851864
+        #   -319313.29760229   27511.55882623   45128.46481922  -44551.27638958
+        #   -9151.56213622]
+        predictedY = clf.predict(testX)
+        res = metrics.r2_score(testY, predictedY)
+        print(res)
 
-    test, train = salariesDM.split(0.2)
+    with open("/Users/Excited/PycharmProjects/Baseball-data-analysis/result.txt", 'w') as f:
+        f.write("r_square: %.6f\n"%res)
+        f.write("\npredict results:\n========================================\n")
+        for a, b in zip(predictedY, testY):
+            f.write("predict: %f\tactual: %f\n"%(a, b))
+        predictedY = [sum(predictedY[i*20:i*20+20]) for i in range(len(predictedY)//20)]
+        testY = [sum(testY[i*20:i*20+20]) for i in range(len(testY)//20)]
+        vv = DataVisualizer()
+        vv.setXLabel("number of samples * 50")
+        vv.setYLabel("sum of every 50 samples")
+        vv.setTitle("comparison of predicted salary and real salary for sum of every 50 samples")
+        vv.alpha=1.0
+        vv.add2dPlot([i for i in range(1, len(predictedY) + 1)], predictedY)
+        vv.color = 'C2'
+        vv.add2dPlot([i for i in range(1, len(testY) + 1)], testY)
+        vv.show()
 
-    print(test[:5], train[:5])
 
 
 
