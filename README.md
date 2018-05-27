@@ -45,7 +45,7 @@ ___
 
 In order to find out if the similar pattern also exists in data other than the number of home runs, I also summarized the statistic for the total number of the batter who successfully reaches second base (2B) and third base(3B) for each year. I created graphs below with the same method I used to generate graph 1-0-1 and 1-0-2.
 <p>
-    <img src='media/15271761548418/2nd%20and%203rd%20base.png' caption='1-0-1 and 1-0-2'>
+    <img src='https://github.com/JeffreyWang2864/Baseball-data-analysis/blob/master/images/2nd%20and%203rd%20base.png' caption='1-0-1 and 1-0-2'>
     <center><em style="color:lightGray">1-0-3(top-left), 1-0-4(top-right), 1-0-5(bottom-left) and 1-0-6(bottom-right)</em></center>
 </p>
 Graph 1-0-5 and 1-0-6, which visualized the change in the total number of the batter successfully makes to the second base, presents a surging trend. The trend corresponds to the tendency of the number of home runs, which increase dramatically in the past decades. On the other hand, the trend of the third base(graph 1-0-3 and 1-0-4) seems to be different. In the beginning of the figure, the total number of making to the third base increased dramatically, whereas after the growth, the trend decreased over time. Since the number of home runs, second base, and first base(I didn't put the graph in this document) all presents the same characteristic, why does the characteristic of the third base becomes an outlier? Unfortunately, I did not find a strong evidence to explain this disorder. However, I believe that the following aspects might be the factor that shifts the trend:
@@ -59,14 +59,14 @@ ___
 
 What causes the surge of the number of home runs, second base and so on? The first possible solution that poped up in my brain was the increase of the player's physical strength. I assumed that as players' weight increases over time, their strength would increase as well so that batting a home run would be more accessible.
 <p>
-    <center><img src='media/15271761548418/weight.png' caption='1-0-1 and 1-0-2'></center>
+    <center><img src='https://github.com/JeffreyWang2864/Baseball-data-analysis/blob/master/images/weight.png' caption='1-0-1 and 1-0-2'></center>
     <center><em style="color:lightGray">1-0-7</em></center>
 </p>
 The x-axis is the year that each player was born on, and the y-axis is the weight of the player when he is registered. From the graph, I observed that the average weight was gradually increasing from 1840 to 1960. After 1960, the average weight increased even faster. The phenomenon correlates with my assumption, but I think the evidence is not strong enough to prove the point, because the increasing rate(derivative) is not that high.
 
 I also created a graph that scattered the height-to-weight ratio of baseball players in the dataset.
 <p>
-    <center><img src='media/15271761548418/height-to-weight%20ratio.png' caption='1-0-1 and 1-0-2'></center>
+    <center><img src='https://github.com/JeffreyWang2864/Baseball-data-analysis/blob/master/images/height-to-weight%20ratio.png' caption='1-0-1 and 1-0-2'></center>
     <center><em style="color:lightGray">1-0-8</em></center>
 </p>
 The x-axis is the height of the player in feet, and the y-axis is the weight of the player in pounds. In comparison, I marked the average weight and height of American male over age 20 on the graph(where the red dot located). According to [FastStats](https://www.cdc.gov/nchs/fastats/body-measurements.htm), the average American man over age 20 weighs 195.7 pounds, and the average height is just over 5 feet 9 inches (about 69.2 inches) tall. Baseball athletes have an average weight at 185 pounds and height at 72.2 inches. The graph is beneficial for those who are planning to become a professional baseball player. By calculating their own weight-to-height ratio, whether if their ratio can fit with the majority of real baseball athletes is distinguishable.
@@ -115,17 +115,17 @@ I assumed that a player's last year's performances would have an impact on his n
 1. As the year goes up, the salary goes up. The average salary in 1960 was around 475K, and the average salary increased to 3.9M after a half-century. Since more and more people are putting their interests into sports for the past decades, more investors put their money into sports teams. With the technological advances, people can watch games worldwide which also increases the popularity. Furthermore, the inflation of currency can also be the factor that drives the salary up.
 2. In certain baseball teams, the (average) salary is usually higher than other teams. For example, San Francisco Giants, Boston Red Sox, and New York Yankees usually give higher wage to the player.
 
-For the implementation of modeling and graph drawing, please see [main.py](www.google.com) for detail.
-For the testing result and accurate $r^2 score$, please see [result.txt](www.google.com).
+For the implementation of modeling and graph drawing, please see [main.py](https://github.com/JeffreyWang2864/Baseball-data-analysis/blob/master/main.py) for detail.
+For the testing result and accurate $r^2 score$, please see [result.txt](https://github.com/JeffreyWang2864/Baseball-data-analysis/blob/master/result.txt).
 
 ___
 
-####Conclusion
+#### Conclusion
 With the gigantic dataset, I found several relationships between different factors(in the dataset) by visualizing data with an open source library. Some visualizations are helpful for people to compare their own data to the average, and others are helpful for people to understand the tendency/trend of certain things. There (maybe) are problems and inaccurate info in my analysis, for example, perhaps I can get a higher $r^2 score$ by using a better way to train the model. However, I think that my investigation at least reveals my personal understanding of the provided dataset. Maybe in future, I can look back to my today's analysis and try to find a way to improve it.
 <br>
 
 ___
-####Codes
+#### Codes
 If you would like to see the code, please click [here](https://github.com/JeffreyWang2864/Baseball-data-analysis).
 Full SQL commands are also included in the repository.
 *If the above link doesn't work, please copy `https://github.com/JeffreyWang2864/Baseball-data-analysis` and paste it into your browser.*
