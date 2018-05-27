@@ -12,13 +12,13 @@ SELECT MIN(yearID), MAX(yearID)
 ```
 ___
 
-The scale of the dataset enables analysts to conclude similarities and differences of the data between different time periods. By comparing those data, the tendency/pattern of the data is somewhat recognizable. One of the most recognizable pattern is the number of hits of home runs in each year. I visualized the data with [matplotlib](http://matplotlib.org/), an open source plotting tool, and the programming language [Python](https://www.python.org/).
+The scale of the dataset enables analysts to conclude similarities and differences of the data between different time periods. By comparing those data, the tendency/pattern of the data is somewhat recognizable. One of the most recognizable pattern is the number of home runs a player successfully made in each year. I visualized the data with [matplotlib](http://matplotlib.org/), an open source plotting tool, and the programming language [Python](https://www.python.org/).
 <p>
     <img src='https://github.com/JeffreyWang2864/Baseball-data-analysis/blob/master/images/home%20runs.png' caption='1-0-1 and 1-0-2'>
     <center><em style="color:lightGray">1-0-1 and 1-0-2</em></center>
 </p>
 
-Graph 1-0-1 scattered the amount of home runs each player have made in a specific year. Each dot represents the home runs a player made in a specific year. For example, the red dot symbolized a player made totally 42 home runs in 1941. There are two places in the graph that I found out interesting, and I marked them with boxes. Both boxes are highly concentrated with dots. The green box indicates that around 1880, most player made 0-3 home runs per year. The highest record at 1880 was made by Bill Ahearn, who made 6 home runs in TRN. The red box, on the other hand, clearly suggests the vast difference of the baseball environment three decades after 1880. In "modern" era, baseball players usually make 0-20 home runs for a year. Even a regular baseball player in the twenty-first century can easily break Bill Ahearn's record, which the latter only made 6 home runs. In comparison, the record in 2010 was made by David Aardsma, who have made 54 home runs in SEA. David's data is 9 times larger than Bill's. The second graph was created with the same dataset but in a different approach: The broken line shows the summation of all home runs has been made in the statistic within a year. In this graph, the difference in terms of the number of home run is even more noticeable.
+Graph 1-0-1 scattered the amount of home runs each player have made in a specific year. Each dot represents the home runs a player made in a specific year. For example, the red dot in the center of graph 1-0-1 symbolized a player made totally 42 home runs in 1941. There are two places in the graph that I found out interesting, and I marked them with boxes. Both boxes are highly concentrated with dots. The green box indicates that around 1880, most player made 0-3 home runs per year. The highest record at 1880 was made by Bill Ahearn, who made 6 home runs in TRN. The red box, on the other hand, clearly suggests the vast difference of the baseball environment three decades after 1880. In "modern" era, baseball players usually make 0-20 home runs for a year. Even a regular baseball player in the twenty-first century can easily break Bill Ahearn's record, which the latter only made 6 home runs. In comparison, the record in 2010 was made by David Aardsma, who have made 54 home runs in SEA. David's data is 9 times greater than Bill's. The second graph was created with the same dataset but in a different approach: The broken line shows the summation of all home runs has been made in the statistic within a year. In this graph, the difference in terms of the number of home run is even more noticeable.
 
 I gathered the data with the following SQL commands:
 
@@ -48,7 +48,7 @@ In order to find out if the similar pattern also exists in data other than the n
     <img src='https://github.com/JeffreyWang2864/Baseball-data-analysis/blob/master/images/2nd%20and%203rd%20base.png' caption='1-0-1 and 1-0-2'>
     <center><em style="color:lightGray">1-0-3(top-left), 1-0-4(top-right), 1-0-5(bottom-left) and 1-0-6(bottom-right)</em></center>
 </p>
-Graph 1-0-5 and 1-0-6, which visualized the change in the total number of the batter successfully makes to the second base, presents a surging trend. The trend corresponds to the tendency of the number of home runs, which increase dramatically in the past decades. On the other hand, the trend of the third base(graph 1-0-3 and 1-0-4) seems to be different. In the beginning of the figure, the total number of making to the third base increased dramatically, whereas after the growth, the trend decreased over time. Since the number of home runs, second base, and first base(I didn't put the graph in this document) all presents the same characteristic, why does the characteristic of the third base becomes an outlier? Unfortunately, I did not find a strong evidence to explain this disorder. However, I believe that the following aspects might be the factor that shifts the trend:
+Graph 1-0-5 and 1-0-6, which visualized the change in the total number of the batter successfully makes to the second base, presents a surging trend. The trend corresponds to the tendency of the number of home runs, which increase dramatically in the past decades. On the other hand, the trend of the third base(graph 1-0-3 and 1-0-4) seems to be different. In the beginning of those figures, the total number of making to the third base increased dramatically, whereas after the growth, the trend decreased over time. Since the number of home runs, second base, and first base(I didn't put the graph in this document) all present the same characteristic, why does the characteristic of the third base becomes an outlier? Unfortunately, I did not find a strong evidence to explain this disorder. However, I believe that the following aspects might be the factor that shifts the trend:
 
 1. The advancement of baseball strategies. Since players and coaches strengthened their understanding of baseball over time, they might develop some new strategies. For example, instead of taking the possibility of getting "knocked out" when running toward third base, players might just want to stay on the second base safely.
 2. Although the summation of the number of reaching third base each year(graph 1-0-4) was decreasing, the highly concentrated area in graph 1-0-3 didn't change much. The highly concentrated area (dark area in 1-0-3) suggests the most common number of making to the third base in a year. In graphs with regular tendencies(e.g. the graph of the number home run), both light area and dark area changed. However, in the graph of making to the third base in a year, the highly concentrated area didn't modify a lot.
@@ -69,7 +69,7 @@ I also created a graph that scattered the height-to-weight ratio of baseball pla
     <center><img src='https://github.com/JeffreyWang2864/Baseball-data-analysis/blob/master/images/height-to-weight%20ratio.png' caption='1-0-1 and 1-0-2'></center>
     <center><em style="color:lightGray">1-0-8</em></center>
 </p>
-The x-axis is the height of the player in feet, and the y-axis is the weight of the player in pounds. In comparison, I marked the average weight and height of American male over age 20 on the graph(where the red dot located). According to [FastStats](https://www.cdc.gov/nchs/fastats/body-measurements.htm), the average American man over age 20 weighs 195.7 pounds, and the average height is just over 5 feet 9 inches (about 69.2 inches) tall. Baseball athletes have an average weight at 185 pounds and height at 72.2 inches. The graph is beneficial for those who are planning to become a professional baseball player. By calculating their own weight-to-height ratio, whether if their ratio can fit with the majority of real baseball athletes is distinguishable.
+The x-axis is the height of the player in feet, and the y-axis is the weight of the player in pounds. In comparison, I marked the average weight and height of American male over age 20 on the graph(where the red dot located). According to [FastStats](https://www.cdc.gov/nchs/fastats/body-measurements.html), the average American man over age 20 weighs 195.7 pounds, and the average height is just over 5 feet 9 inches (about 69.2 inches) tall. Baseball athletes have an average weight at 185 pounds and height at 72.2 inches. The graph is beneficial for those who are planning to become a professional baseball player. By calculating their own height-to-weight ratio, whether if their ratios fit with the majority of real baseball athletes is distinguishable.
 
 I gathered the data with the following SQL commands:
 
@@ -116,6 +116,7 @@ I assumed that a player's last year's performances would have an impact on his n
 2. In certain baseball teams, the (average) salary is usually higher than other teams. For example, San Francisco Giants, Boston Red Sox, and New York Yankees usually give higher wage to the player.
 
 For the implementation of modeling and graph drawing, please see [main.py](https://github.com/JeffreyWang2864/Baseball-data-analysis/blob/master/main.py) for detail.
+
 For the testing result and accurate $r^2 score$, please see [result.txt](https://github.com/JeffreyWang2864/Baseball-data-analysis/blob/master/result.txt).
 
 ___
@@ -127,7 +128,9 @@ With the gigantic dataset, I found several relationships between different facto
 ___
 #### Codes
 If you would like to see the code, please click [here](https://github.com/JeffreyWang2864/Baseball-data-analysis).
+
 Full SQL commands are also included in the repository.
+
 *If the above link doesn't work, please copy `https://github.com/JeffreyWang2864/Baseball-data-analysis` and paste it into your browser.*
 
 
