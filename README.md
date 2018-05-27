@@ -14,7 +14,7 @@ ___
 
 The scale of the dataset enables analysts to conclude similarities and differences of the data between different time periods. By comparing those data, the tendency/pattern of the data is somewhat recognizable. One of the most recognizable pattern is the number of hits of home runs in each year. I visualized the data with [matplotlib](http://matplotlib.org/), an open source plotting tool, and the programming language [Python](https://www.python.org/).
 <p>
-    <img src='media/15271761548418/home%20runs.png' caption='1-0-1 and 1-0-2'>
+    <img src='https://github.com/JeffreyWang2864/Baseball-data-analysis/blob/master/images/home%20runs.png' caption='1-0-1 and 1-0-2'>
     <center><em style="color:lightGray">1-0-1 and 1-0-2</em></center>
 </p>
 
